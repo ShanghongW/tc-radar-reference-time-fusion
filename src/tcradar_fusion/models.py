@@ -83,6 +83,7 @@ def apply_temporal_correction(batch: dict[str, torch.Tensor], prediction: dict[s
     tau = batch["tau_hours"].float()
     signed = tau[:, :, None, None, None, None]
     absolute = tau.abs()[:, :, None, None, None, None]
+    # Ordered as [T_B, T_L, T_S] in hours; the supplied configuration sets all three to 12 h.
     scales = torch.as_tensor(cfg["temporal_model"]["time_scales_hours"], dtype=tau.dtype, device=tau.device).reshape(1, 1, 3, 1, 1, 1)
     decay = torch.exp(-absolute / scales)
     tendency = prediction["tendency"]

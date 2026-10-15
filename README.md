@@ -83,4 +83,6 @@ The comparison adds the motion translation to storm-relative radar winds, sample
 
 `configs/model.json` contains network widths, tendency/modulation bounds, regularization scales, losses, learning rate and seeds. See [docs/method.md](docs/method.md) for the operator and output interpretation. Existing checkpoints may be loaded only with their matching architecture and parameter configuration.
 
+The temporal attenuation scales are `T_B = T_L = T_S = 12 h`. They are stored in background/large/small-component order as `"time_scales_hours": [12.0, 12.0, 12.0]`. These fixed regularization scales are not diagnosed physical evolution times.
+
 All local datasets, checkpoints, caches, logs, evaluation tables and NetCDF products are excluded by `.gitignore`.

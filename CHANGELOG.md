@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-10-15: Temporal-scale configuration
+
+- Make the supplied `T_B = T_L = T_S = 12 h` configuration explicit in the method description, README and temporal-operator component ordering.
+- The numerical settings remain `[12.0, 12.0, 12.0]`; no model weights or observational results are changed.
+
 ## 0.1.0
 
 - Standalone package for preparation, joint single-split fitting, masked reconstruction, reference-time inference and SAR comparison.

@@ -6,7 +6,9 @@ At each observed source grid point, radial and tangential winds are decomposed a
 
 The background uses source-only medians in 10-km annuli. The smoothed asymmetry uses a mask-normalized horizontal Gaussian filter with 12-km standard deviation. The residual is the exact remaining perturbation on source support.
 
-For signed offset `tau_s = t_ref - t_s`, the temporal network predicts bounded two-component tendencies and modulation parameters. Each increment contains `tau_s` and an attenuation factor `exp(-abs(tau_s)/T)`. The asymmetric increments also contain bounded signed modulation `exp(clip(tau_s*kappa))`. Zero time offset returns the original source components. The scale values are configuration parameters, not diagnosed dynamical lifetimes.
+For signed offset `tau_s = t_ref - t_s`, the temporal network predicts bounded two-component tendencies and modulation parameters. Each increment contains `tau_s` and an attenuation factor `exp(-abs(tau_s)/T)`. The asymmetric increments also contain bounded signed modulation `exp(clip(tau_s*kappa))`. Zero time offset returns the original source components.
+
+The supplied configuration sets `T_B = T_L = T_S = 12 h`. The `temporal_model.time_scales_hours` array in `configs/model.json` is ordered as `[T_B, T_L, T_S]`, for the annular background, smoothed asymmetry and residual asymmetry, respectively. These are fixed regularization/attenuation scales applied over the retained source-offset range of at most 5 h, not diagnosed physical e-folding, decorrelation or dynamical memory times of the tropical-cyclone circulation. The separate 12-km horizontal smoothing scale defines the spatial decomposition and is not a time parameter.
 
 A shared set representation predicts source reliability and effective radial/tangential covariance. With source precision `P_s = q_s * inverse(Sigma_s)`, the estimate is
 
