@@ -1,0 +1,83 @@
+{
+  "project": {
+    "name": "TC-RADAR reference-time fusion",
+    "version": "0.1.0",
+    "qc_version": "reference_time_qc_1",
+    "data_version": "TC-RADAR v3m",
+    "seed": 20260727
+  },
+  "paths": {
+    "project_root": "..",
+    "qc_all": "../data/qc_all.csv",
+    "merged_files": [
+      "../data/tc_radar_v3m_1997_2019_xy_rel_merge_ships.nc",
+      "../data/tc_radar_v3m_2020_2024_xy_rel_merge_ships.nc"
+    ],
+    "swath_files": [
+      "../data/tc_radar_v3m_1997_2019_xy_rel_swath_ships.nc",
+      "../data/tc_radar_v3m_2020_2024_xy_rel_swath_ships.nc"
+    ],
+    "output_root": "../outputs/prepared",
+    "cache_dir": "../outputs/prepared/cache/swaths",
+    "archive_product_dir": "../outputs/model/products",
+    "satellite_validation_dir": "../outputs/sar_comparison",
+    "satellite_validation_figure_dir": "../outputs/sar_figures"
+  },
+  "variables": {
+    "u": "recentered_eastward_wind",
+    "v": "recentered_northward_wind",
+    "x": "eastward_distance",
+    "y": "northward_distance",
+    "z": "height",
+    "swath_coverage": "swath_coverage"
+  },
+  "domain": {
+    "radius_max_km": 150.0,
+    "height_min_km": 0.5,
+    "height_max_km": 18.0,
+    "reference_height_km": 2.0,
+    "radial_bin_km": 10.0
+  },
+  "qc": {
+    "max_initial_vmax_kt": null,
+    "min_distance_to_land_km": 50.0,
+    "min_core_quadrant_coverage": 0.5,
+    "min_swath_coverage_2km": 0.2,
+    "min_good_swaths": 3,
+    "require_strict_good_majority": true,
+    "max_good_midpoint_span_hours": 5.0
+  },
+  "split": {
+    "train_fraction": 0.7,
+    "validation_fraction": 0.15,
+    "test_fraction": 0.15,
+    "seed": 20260727,
+    "search_iterations": 30000
+  },
+  "mask": {
+    "types": [
+      "sector",
+      "stripe",
+      "block",
+      "radial_gap",
+      "mixed"
+    ],
+    "hidden_fraction_min": 0.08,
+    "hidden_fraction_max": 0.25,
+    "support_threshold": 0.5,
+    "fixed_masks_per_mission": 3,
+    "seed": 20260727
+  },
+  "parallel": {
+    "enabled": true,
+    "qc_workers": 8,
+    "max_concurrent_swath_files": 1,
+    "preprocessing_workers": 8,
+    "dataloader_workers": 2,
+    "persistent_workers": false,
+    "pin_memory": true,
+    "prefetch_factor": 1,
+    "distributed_training": false,
+    "deterministic": true
+  }
+}

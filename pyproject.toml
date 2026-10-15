@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tcradar-reference-time-fusion"
+version = "0.1.0"
+description = "Fixed-coordinate temporal harmonization and observation-supported fusion of airborne Doppler radar swaths"
+requires-python = ">=3.10"
+readme = "README.md"
+dependencies = ["numpy>=1.24", "pandas>=2.0", "scipy>=1.10", "torch>=2.2", "netCDF4>=1.6", "PyYAML>=6.0"]
+
+[project.optional-dependencies]
+sar = ["h5py>=3.8", "matplotlib>=3.7"]
+
+[project.scripts]
+tcradar-fusion = "tcradar_fusion.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

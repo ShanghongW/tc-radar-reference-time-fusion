@@ -1,0 +1,114 @@
+{
+  "data": {
+    "expected_missions": 148,
+    "expected_good_swaths": 544,
+    "expected_storms": 63,
+    "radius_max_km": 150.0,
+    "height_min_km": 0.5,
+    "height_max_km": 18.0,
+    "radial_bin_km": 10.0,
+    "large_scale_sigma_km": 12.0,
+    "gaussian_mask_threshold": 0.25,
+    "min_annular_points": 8
+  },
+  "mask": {
+    "types": [
+      "sector",
+      "stripe",
+      "block",
+      "radial_gap",
+      "mixed"
+    ],
+    "hidden_fraction_min": 0.08,
+    "hidden_fraction_max": 0.25,
+    "masks_per_pair_train": 1,
+    "masks_per_pair_validation": 1,
+    "masks_per_pair_test": 1,
+    "seed": 20260802
+  },
+  "temporal_model": {
+    "input_channels": 27,
+    "hidden_channels": 8,
+    "max_tendency_ms_per_hour": 2.0,
+    "max_small_tendency_ms_per_hour": 1.0,
+    "max_kappa_per_hour": 0.08,
+    "min_sigma_ms": 0.25,
+    "max_sigma_ms": 40.0,
+    "time_scales_hours": [
+      12.0,
+      12.0,
+      12.0
+    ]
+  },
+  "fusion_model": {
+    "candidate_channels": 18,
+    "hidden_channels": 8,
+    "min_sigma_scale": 0.35,
+    "max_sigma_scale": 3.0,
+    "min_reliability": 0.05,
+    "max_reliability": 20.0
+  },
+  "loss": {
+    "huber_transition_ms": 5.0,
+    "temporal_nll": 0.2,
+    "temporal_multiscale": 0.1,
+    "temporal_identity": 0.02,
+    "temporal_tendency": 0.01,
+    "temporal_smooth": 0.01,
+    "temporal_zero_overlap": 0.05,
+    "temporal_consistency": 0.01,
+    "fusion_nll": 0.2,
+    "fusion_candidate_nll": 0.1,
+    "fusion_rank": 0.05,
+    "fusion_permutation": 0.01,
+    "fusion_weight_smooth": 0.005
+  },
+  "training": {
+    "batch_size": 1,
+    "learning_rate": 0.0003,
+    "weight_decay": 1e-05,
+    "gradient_clip": 1.0,
+    "mixed_precision": false,
+    "dataloader_workers": 0,
+    "use_cuda": true,
+    "cache_missions": true,
+    "cache_static_decomposition": true,
+    "max_pairs_per_fold": null,
+    "max_validation_pairs_per_fold": null,
+    "early_stopping_patience": 2,
+    "epochs": 16
+  },
+  "evaluation": {
+    "minimum_points": 25,
+    "bootstrap_resamples": 1000,
+    "time_bins_hours": [
+      [
+        0.0,
+        0.5
+      ],
+      [
+        0.5,
+        1.0
+      ],
+      [
+        1.0,
+        2.0
+      ],
+      [
+        2.0,
+        4.0
+      ]
+    ]
+  },
+  "project": {
+    "name": "TC-RADAR reference-time fusion",
+    "version": "0.1.0",
+    "seed": 20260802
+  },
+  "parent_config": "data.json",
+  "output_root": "../outputs/model",
+  "runtime": {
+    "deterministic": true,
+    "parallel": false
+  }
+}
